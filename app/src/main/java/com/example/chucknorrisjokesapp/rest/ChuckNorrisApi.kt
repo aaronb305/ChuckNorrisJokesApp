@@ -19,7 +19,7 @@ interface ChuckNorrisApi {
 
 
     companion object {
-        const val BASE_URL = "http://api.icndb.com/"
+        const val BASE_URL = "https://api.icndb.com/"
         private const val RANDOM_PATH = "jokes/random/"
         private const val CATEGORIES_PATH = "categories/"
     }
