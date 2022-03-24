@@ -34,33 +34,36 @@ class MainFragment : BaseFragment() {
         }
 
         binding.randomJoke.setOnClickListener {
-            viewModel.joke.observe(viewLifecycleOwner) { state ->
-                when(state) {
-                    is JokeState.LOADING -> {
-                        Toast.makeText(
-                            requireContext(), "Loading ....", Toast.LENGTH_LONG
-                        ).show()
-                    }
-                    is JokeState.SUCCESS<*> -> {
-                        val jokes = state.jokes as Jokes
-                        val joke = jokes.joke
-                        AlertDialog.Builder(requireContext())
-                            .setMessage(joke.joke)
-                            .setNegativeButton("Dismiss") { dialog, i ->
-                                dialog.dismiss()
-                            }
-                            .show()
-                    }
-                    is JokeState.ERROR -> {
-                        Toast.makeText(
-                            requireContext(), state.throwable.localizedMessage, Toast.LENGTH_LONG
-                        ).show()
-                    }
-                }
-            }
-
             viewModel.getRandomJoke()
         }
+
+        viewModel.joke.observe(viewLifecycleOwner) { state ->
+            when(state) {
+                is JokeState.LOADING -> {
+                    Toast.makeText(
+                        requireContext(), "Loading ....", Toast.LENGTH_LONG
+                    ).show()
+                }
+                is JokeState.SUCCESS<*> -> {
+                    val jokes = state.jokes as Jokes
+                    val joke = jokes.joke
+                    AlertDialog.Builder(requireContext())
+                        .setMessage(joke.joke)
+                        .setPositiveButton("Dismiss") { dialog, i ->
+                            dialog.dismiss()
+                            dialog.cancel()
+                        }
+                        .show()
+                }
+                is JokeState.ERROR -> {
+                    Toast.makeText(
+                        requireContext(), state.throwable.localizedMessage, Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
+        }
+
+
         // Inflate the layout for this fragment
         return binding.root
     }

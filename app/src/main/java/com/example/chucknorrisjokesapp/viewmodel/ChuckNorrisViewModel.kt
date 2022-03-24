@@ -19,6 +19,7 @@ class ChuckNorrisViewModel(
     val joke : LiveData<JokeState> get() = _joke
 
     fun getRandomJoke() {
+        _joke.postValue(JokeState.LOADING)
         viewModelScope.launch(dispatcher) {
             try {
                 val response = chuckNorrisApiRepository.getRandomJoke()
