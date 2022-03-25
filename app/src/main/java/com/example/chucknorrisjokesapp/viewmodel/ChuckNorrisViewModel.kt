@@ -1,5 +1,6 @@
 package com.example.chucknorrisjokesapp.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -23,13 +24,15 @@ class ChuckNorrisViewModel(
         firstName: String? = null,
         lastName: String? = null
     ) {
-        _joke.postValue(JokeState.LOADING)
+//        _joke.postValue(JokeState.LOADING)
+        Log.d("view model initial", joke.value.toString())
         viewModelScope.launch(dispatcher) {
             try {
                 val response = chuckNorrisApiRepository.getRandomJoke(category, firstName, lastName)
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _joke.postValue(JokeState.SUCCESS(it))
+                        Log.d("view model after", joke.value.toString())
                     }?: throw Exception("Response is Null")
                 }
                 else {
@@ -40,5 +43,9 @@ class ChuckNorrisViewModel(
                 _joke.postValue(JokeState.ERROR(e))
             }
         }
+    }
+
+    fun resetState() {
+        _joke.postValue(JokeState.DEFAULT)
     }
 }

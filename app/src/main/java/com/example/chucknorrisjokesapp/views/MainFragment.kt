@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.example.chucknorrisjokesapp.R
 import com.example.chucknorrisjokesapp.databinding.FragmentMainBinding
@@ -51,6 +52,8 @@ class MainFragment : BaseFragment() {
         }
 
         viewModel.joke.observe(viewLifecycleOwner) { state ->
+            Log.d("main fragment", "observe called")
+            Log.d("main fragment", viewModel.joke.value.toString())
             when(state) {
                 is JokeState.LOADING -> {
                     Toast.makeText(
@@ -67,6 +70,7 @@ class MainFragment : BaseFragment() {
                             dialog.cancel()
                         }
                         .show()
+                    viewModel.resetState()
                 }
                 is JokeState.ERROR -> {
                     Toast.makeText(
@@ -76,8 +80,13 @@ class MainFragment : BaseFragment() {
             }
         }
 
-
         // Inflate the layout for this fragment
         return binding.root
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        viewModel.joke.removeObservers(viewLifecycleOwner)
     }
 }

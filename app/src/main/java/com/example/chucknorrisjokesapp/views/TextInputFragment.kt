@@ -2,6 +2,8 @@ package com.example.chucknorrisjokesapp.views
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -44,13 +46,17 @@ class TextInputFragment : BaseFragment() {
         }
 
         viewModel.joke.observe(viewLifecycleOwner) { state ->
+            Log.d("text input fragment", "observe called")
+            Log.d("text input fragment", viewModel.joke.value.toString())
             when(state) {
                 is JokeState.LOADING -> {
+                    Log.d("text input fragment", "observe loading called")
                     Toast.makeText(
                         requireContext(), "Loading ....", Toast.LENGTH_LONG
                     ).show()
                 }
                 is JokeState.SUCCESS<*> -> {
+                    Log.d("text input fragment", "observe success called")
                     val jokes = state.jokes as Jokes
                     val joke = jokes.joke
                     AlertDialog.Builder(requireContext())
@@ -60,8 +66,10 @@ class TextInputFragment : BaseFragment() {
                             dialog.cancel()
                         }
                         .show()
+                    viewModel.resetState()
                 }
                 is JokeState.ERROR -> {
+                    Log.d("text input fragment", "observe error called")
                     Toast.makeText(
                         requireContext(), state.throwable.localizedMessage, Toast.LENGTH_LONG
                     ).show()
