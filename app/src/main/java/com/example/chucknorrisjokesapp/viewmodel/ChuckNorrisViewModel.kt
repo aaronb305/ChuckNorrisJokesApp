@@ -18,11 +18,15 @@ class ChuckNorrisViewModel(
     private val _joke : MutableLiveData<JokeState> = MutableLiveData(JokeState.LOADING)
     val joke : LiveData<JokeState> get() = _joke
 
-    fun getRandomJoke() {
+    fun getRandomJoke(
+        category: Array<String>? = null,
+        firstName: String? = null,
+        lastName: String? = null
+    ) {
         _joke.postValue(JokeState.LOADING)
         viewModelScope.launch(dispatcher) {
             try {
-                val response = chuckNorrisApiRepository.getRandomJoke()
+                val response = chuckNorrisApiRepository.getRandomJoke(category, firstName, lastName)
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _joke.postValue(JokeState.SUCCESS(it))

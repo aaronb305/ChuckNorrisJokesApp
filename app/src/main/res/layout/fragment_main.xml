@@ -33,6 +33,25 @@
         android:gravity="center"
         android:layout_marginTop="80dp"/>
 
+    <CheckBox
+        android:id="@+id/checkboxNSFW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toTopOf="@id/randomJoke"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/NSFW"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="@string/nsfw"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/checkboxNSFW"
+        app:layout_constraintBottom_toTopOf="@id/randomJoke"/>
+
     <Button
         android:id="@+id/randomJoke"
         android:layout_width="120dp"

@@ -7,16 +7,16 @@ class ChuckNorrisApiRepositoryImpl(
     private val chuckNorrisApi: ChuckNorrisApi
 ) : ChuckNorrisApiRepository{
     override suspend fun getRandomJoke(
-        category: String?,
+        category: Array<String>?,
         firstName: String?,
         lastName: String?
     ): Response<Jokes> =
-        chuckNorrisApi.getRandomJoke()
+        chuckNorrisApi.getRandomJoke(category, firstName, lastName)
 }
 
 interface ChuckNorrisApiRepository {
     suspend fun getRandomJoke(
-        category: String? = null,
+        category: Array<String>? = null,
         firstName: String? = null,
         lastName: String? = null
     ) : Response<Jokes>

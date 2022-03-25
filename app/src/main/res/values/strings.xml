@@ -6,4 +6,7 @@
     <string name="never_ending_list">Never Ending List</string>
     <string name="random_joke">Random Joke</string>
     <string name="instructions">Chuck norris would press those buttons below</string>
+    <string name="nsfw">NSFW</string>
+    <string name="back">Back</string>
+    <string name="mainCharacter">What name would you like your main character to have?</string>
 </resources>

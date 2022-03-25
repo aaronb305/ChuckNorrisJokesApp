@@ -12,9 +12,10 @@ interface ChuckNorrisApi {
 
     @GET(RANDOM_PATH)
     suspend fun getRandomJoke(
-        @Query("limitTo") category: List<String>? = null,
+        @Query("exclude") category: Array<String>? = null,
         @Query("firstName") firstName : String? = null,
-        @Query("lastName") lastName : String? = null
+        @Query("lastName") lastName : String? = null,
+        @Query("escape") escape : String = "javascript"
     ) : Response<Jokes>
 
 

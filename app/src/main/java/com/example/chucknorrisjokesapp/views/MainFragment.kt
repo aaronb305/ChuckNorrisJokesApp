@@ -2,6 +2,7 @@ package com.example.chucknorrisjokesapp.views
 
 import android.app.AlertDialog
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -20,10 +21,22 @@ class MainFragment : BaseFragment() {
         FragmentMainBinding.inflate(layoutInflater)
     }
 
+    private var category: Array<String>? = arrayOf("explicit")
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        binding.checkboxNSFW.setOnCheckedChangeListener { compoundButton, b ->
+            category = if (compoundButton.isChecked) {
+                Log.d("main fragment", "checkbox checked")
+                null
+            } else {
+                Log.d("main fragment", "checkbox unchecked")
+                arrayOf("explicit")
+            }
+        }
 
         binding.neverEndingList.setOnClickListener {
             findNavController().navigate(R.id.action_mainFragment_to_neverEndingListFragment)
@@ -34,7 +47,7 @@ class MainFragment : BaseFragment() {
         }
 
         binding.randomJoke.setOnClickListener {
-            viewModel.getRandomJoke()
+            viewModel.getRandomJoke(category)
         }
 
         viewModel.joke.observe(viewLifecycleOwner) { state ->
