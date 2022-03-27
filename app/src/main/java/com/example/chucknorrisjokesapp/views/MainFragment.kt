@@ -48,7 +48,7 @@ class MainFragment : BaseFragment() {
         }
 
         binding.randomJoke.setOnClickListener {
-            viewModel.getRandomJoke(category)
+            viewModel.getRandomJoke(category = category)
         }
 
         viewModel.joke.observe(viewLifecycleOwner) { state ->
@@ -62,7 +62,7 @@ class MainFragment : BaseFragment() {
                 }
                 is JokeState.SUCCESS<*> -> {
                     val jokes = state.jokes as Jokes
-                    val joke = jokes.joke
+                    val joke = jokes.joke.first()
                     AlertDialog.Builder(requireContext())
                         .setMessage(joke.joke)
                         .setPositiveButton("Dismiss") { dialog, i ->

@@ -91,4 +91,6 @@ dependencies {
     //koin
     implementation "io.insert-koin:koin-android:$koinVersion"
     implementation "io.insert-koin:koin-core:$koinVersion"
+
+    implementation 'androidx.recyclerview:recyclerview:1.2.1'
 }

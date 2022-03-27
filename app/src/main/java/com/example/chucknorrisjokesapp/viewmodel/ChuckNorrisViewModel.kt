@@ -20,6 +20,7 @@ class ChuckNorrisViewModel(
     val joke : LiveData<JokeState> get() = _joke
 
     fun getRandomJoke(
+        number : Int = 1,
         category: Array<String>? = null,
         firstName: String? = null,
         lastName: String? = null
@@ -28,7 +29,7 @@ class ChuckNorrisViewModel(
         Log.d("view model initial", joke.value.toString())
         viewModelScope.launch(dispatcher) {
             try {
-                val response = chuckNorrisApiRepository.getRandomJoke(category, firstName, lastName)
+                val response = chuckNorrisApiRepository.getRandomJoke(number, category, firstName, lastName)
                 if (response.isSuccessful) {
                     response.body()?.let {
                         _joke.postValue(JokeState.SUCCESS(it))

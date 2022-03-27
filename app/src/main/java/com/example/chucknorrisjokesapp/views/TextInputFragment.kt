@@ -58,7 +58,7 @@ class TextInputFragment : BaseFragment() {
                 is JokeState.SUCCESS<*> -> {
                     Log.d("text input fragment", "observe success called")
                     val jokes = state.jokes as Jokes
-                    val joke = jokes.joke
+                    val joke = jokes.joke.first()
                     AlertDialog.Builder(requireContext())
                         .setMessage(joke.joke)
                         .setPositiveButton("Dismiss") { dialog, i ->
@@ -80,11 +80,10 @@ class TextInputFragment : BaseFragment() {
         binding.mainCharacterJoke.setOnClickListener {
             val name = binding.nameInput.text.toString()
             val parsedName = name.trim().split(" ")
-            if (parsedName.size == 1) {
-                val lastName = null
-            }
-            else {
-                val lastName = parsedName[1].replaceFirstChar {
+            lastName = if (parsedName.size == 1) {
+                null
+            } else {
+                parsedName[1].replaceFirstChar {
                     it.uppercase()
                 }
             }
@@ -93,7 +92,7 @@ class TextInputFragment : BaseFragment() {
             }
             Log.d("text input first name", firstName)
             Log.d("text input last name", lastName.toString())
-            viewModel.getRandomJoke(category, firstName, lastName)
+            viewModel.getRandomJoke(1, category, firstName, lastName)
         }
         // Inflate the layout for this fragment
         return binding.root
