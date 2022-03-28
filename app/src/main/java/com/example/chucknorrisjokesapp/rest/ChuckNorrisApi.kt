@@ -9,9 +9,6 @@ import retrofit2.http.Query
 
 interface ChuckNorrisApi {
 
-//    @GET(RANDOM_PATH)
-//    fun getRandomJoke()
-
     @GET("$RANDOM_PATH{number}")
     suspend fun getRandomJoke(
         @Path("number") number : Int = 1,
@@ -20,7 +17,6 @@ interface ChuckNorrisApi {
         @Query("lastName") lastName : String? = null,
         @Query("escape") escape : String = "javascript"
     ) : Response<Jokes>
-
 
     companion object {
         const val BASE_URL = "https://api.icndb.com/"

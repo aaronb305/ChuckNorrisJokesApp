@@ -8,7 +8,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.chucknorrisjokesapp.rest.ChuckNorrisApiRepository
 import com.example.chucknorrisjokesapp.utils.JokeState
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class ChuckNorrisViewModel(
@@ -25,7 +24,7 @@ class ChuckNorrisViewModel(
         firstName: String? = null,
         lastName: String? = null
     ) {
-//        _joke.postValue(JokeState.LOADING)
+        _joke.postValue(JokeState.LOADING)
         Log.d("view model initial", joke.value.toString())
         viewModelScope.launch(dispatcher) {
             try {

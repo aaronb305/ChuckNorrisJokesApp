@@ -1,6 +1,5 @@
 package com.example.chucknorrisjokesapp.rest
 
-import com.example.chucknorrisjokesapp.model.Joke
 import com.example.chucknorrisjokesapp.model.Jokes
 import retrofit2.Response
 
