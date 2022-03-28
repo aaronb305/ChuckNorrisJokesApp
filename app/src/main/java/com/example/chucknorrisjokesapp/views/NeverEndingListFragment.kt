@@ -1,26 +1,20 @@
 package com.example.chucknorrisjokesapp.views
 
-import android.app.AlertDialog
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AbsListView
-import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.core.view.size
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.chucknorrisjokesapp.R
 import com.example.chucknorrisjokesapp.adapter.ChuckNorrisAdapter
-import com.example.chucknorrisjokesapp.adapter.OnScrollListener
 import com.example.chucknorrisjokesapp.databinding.FragmentNeverEndingListBinding
 import com.example.chucknorrisjokesapp.model.Joke
 import com.example.chucknorrisjokesapp.model.Jokes
 import com.example.chucknorrisjokesapp.utils.JokeState
-import kotlin.properties.Delegates
 
 class NeverEndingListFragment : BaseFragment() {
 
@@ -73,9 +67,15 @@ class NeverEndingListFragment : BaseFragment() {
 
         viewModel.getRandomJoke(30)
 
-        binding.recycler.addOnScrollListener(
-            OnScrollListener(mLayoutManager, chuckNorrisAdapter, jokeList)
-        )
+        binding.recycler.addOnScrollListener(object: RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                if (mLayoutManager.findLastVisibleItemPosition() == recyclerView.size - 1) {
+                    viewModel.getRandomJoke(30)
+                }
+            }
+        })
 
         binding.backButton.setOnClickListener {
             findNavController().navigateUp()

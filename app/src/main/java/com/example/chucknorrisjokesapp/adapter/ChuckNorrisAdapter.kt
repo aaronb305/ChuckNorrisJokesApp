@@ -25,11 +25,13 @@ class ChuckNorrisAdapter(
 
     override fun getItemCount(): Int = jokes.size
 
-    fun updateJokes(newJokes: MutableList<Joke>)  {
+    fun updateJokes(newJokes: MutableList<Joke>) : List<Joke> {
         val initialSize = jokes.size
         jokes.addAll(newJokes)
         val finalSize = jokes.size
-        notifyItemRangeInserted(initialSize, finalSize)
+//        notifyItemRangeInserted(initialSize, finalSize)
+        notifyDataSetChanged()
+        return jokes
     }
 }
 
