@@ -71,7 +71,7 @@ class NeverEndingListFragment : BaseFragment() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
 
-                if (mLayoutManager.findLastVisibleItemPosition() == recyclerView.size - 1) {
+                if (mLayoutManager.findLastVisibleItemPosition() == chuckNorrisAdapter.itemCount - 1) {
                     viewModel.getRandomJoke(30)
                 }
             }
